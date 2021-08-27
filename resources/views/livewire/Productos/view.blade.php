@@ -15,6 +15,7 @@
         <div class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
              <i class="fa fa-plus"></i>  Crear Producto
         </div>
+        <a class="btn btn-success" wire:click.prevent="ExportExcel()"><i class="fas fa-file-excel"></i> Expotar Excel</a>
             <div class="card-tools">
                     <input wire:model='keyWord' name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
               </div>
@@ -72,7 +73,7 @@
                                 <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter{{$row->id}}"><i class="text-danger fa fa-trash"></i> Eliminar</a>
                                 </div>
                             </div>
-                            @include('livewire.familias.delete')
+                            @include('livewire.Productos.delete')
                         </td>
 
                     </tr>

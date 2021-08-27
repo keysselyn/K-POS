@@ -7,7 +7,11 @@ use Livewire\WithPagination;
 use App\Models\Producto;
 use App\Models\Familia;
 use App\Models\Impuesto;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductosExport;
+use App\Imports\ProductosImport;
 use Livewire\WithFileUploads;
+
 
 class Productos extends Component
 {
@@ -184,5 +188,18 @@ class Productos extends Component
             $record->delete();
             session()->flash('message_delete', 'Producto Eliminado Correctamente.');
         }
+    }
+
+    public function ExportExcel()
+    {
+        return Excel::download(new ProductosExport, 'Poductos.xlsx');
+
+    }
+
+    public function ImportExcel(Request $request)
+    {
+        $file = $request->file('file');
+        Excel::import(new ProductosImport, $file);
+        return back()->with('messege', 'importacion completada');
     }
 }

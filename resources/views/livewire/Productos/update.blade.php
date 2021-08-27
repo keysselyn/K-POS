@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content text-dark">
             <div class="modal-header bg-warning">
-              <h5 class="modal-title">Editar Almacen</h5>
+              <h5 class="modal-title">Editar Producto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span wire:click.prevent="cancel()" aria-hidden="true">&times;</span>
               </button>
