@@ -9,6 +9,7 @@
     <div class="card-header ">
         @include('livewire.Productos.create')
 		@include('livewire.Productos.update')
+        @include('livewire.Productos.importar')
         @include('message')
 
             {{-- Example button to open modal --}}
@@ -16,6 +17,10 @@
              <i class="fa fa-plus"></i>  Crear Producto
         </div>
         <a class="btn btn-success" wire:click.prevent="ExportExcel()"><i class="fas fa-file-excel"></i> Expotar Excel</a>
+        <div class="btn btn-success" data-toggle="modal" data-target="#ModalImport">
+            <i class="fa fa-plus"></i>  Importar
+       </div>
+
             <div class="card-tools">
                     <input wire:model='keyWord' name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
               </div>

@@ -19,7 +19,7 @@ class Productos extends Component
     use WithFileUploads;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $codigo_barras, $descripcion, $familia, $precio_compra, $precio_venta, $itbis, $existencia, $existencia_minima, $imagen1, $imagen2, $imagen;
+    public $selected_id, $keyWord, $codigo_barras, $descripcion, $familia, $precio_compra, $precio_venta, $itbis, $existencia, $existencia_minima, $imagen1, $imagen2, $imagen, $file;
 
     public $updateMode = false;
 
@@ -57,6 +57,7 @@ class Productos extends Component
 		$this->imagen = null;
         $this->imagen1 = null;
         $this->imagen2 = null;
+        $this->file = null;
 
 	}
 
@@ -196,10 +197,15 @@ class Productos extends Component
 
     }
 
-    public function ImportExcel(Request $request)
+    public function ImportExcel()
     {
-        $file = $request->file('file');
-        Excel::import(new ProductosImport, $file);
-        return back()->with('messege', 'importacion completada');
+        $this->validate([
+            'file' => 'required',
+            ]);
+        Excel::import(new ProductosImport, $this->file);
+        $this->resetInput();
+        session()->flash('message', 'Productos Importados Correctamente.');
+
     }
+
 }
