@@ -19,6 +19,9 @@
 
                   </div>
                   @error('file') <span class="error text-danger">{{ $message }}</span> @enderror
+                  <p wire:loading>
+                    Cargando...
+                  </p>
             </div>
             <div class="modal-footer">
                 <button wire:click.prevent="cancel() type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

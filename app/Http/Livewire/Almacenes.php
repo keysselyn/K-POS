@@ -43,6 +43,8 @@ class Almacenes extends Component
 		$this->telefono = null;
 	}
 
+
+
     public function store()
     {
         $this->validate([

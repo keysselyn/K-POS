@@ -23,7 +23,7 @@
                             <label class="label">Descripción</label>
                             <input required autocomplete="off" wire:model="descripcion" class="form-control form-control-border border-width-2"
                                    type="text" placeholder="Descripción">
-                            @error('codigo_barras') <span class="error text-danger">{{ $message }}</span> @enderror
+                            @error('descripcion') <span class="error text-danger">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="col-3 form-group">
@@ -88,7 +88,7 @@
                             </div>
                             <div class="row">
                             <label class="btn btn-default form-control form-control-border border-width-2">
-                                Buscar imagen <i class="fas fa-images"></i> <input wire:model="imagen" class="" type="file" name="archivo" accept="image/*" hidden id="imgInp">
+                                Buscar imagen <i class="fas fa-images"></i> <input wire:model="imagen" class="" type="file" accept="image/*" hidden>
                             </label>
                             @error('imagen') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>

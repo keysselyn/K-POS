@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Producto;
 use App\Models\Familia;
 use App\Models\Impuesto;
+use App\Models\Almacenes;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductosExport;
 use App\Imports\ProductosImport;
@@ -19,14 +20,27 @@ class Productos extends Component
     use WithFileUploads;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $codigo_barras, $descripcion, $familia, $precio_compra, $precio_venta, $itbis, $existencia, $existencia_minima, $imagen1, $imagen2, $imagen, $file;
+    public $selected_id, $keyWord, $codigo_barras, $descripcion, $familia, $almacen, $precio_compra, $precio_venta, $itbis, $existencia, $existencia_minima, $imagen1, $imagen2, $imagen, $file;
+    public $inputs = [];
+    public $i = 1;
 
     public $updateMode = false;
 
+    public function add($i)
+    {
+        $i = $i + 1;
+        $this->i = $i;
+        array_push($this->inputs ,$i);
+    }
+
+    public function remove($i)
+    {
+        unset($this->inputs[$i]);
+    }
+
     public function render()
     {
-        $familia = Familia::all()->toArray();
-        $impuesto = Impuesto::all()->toArray();
+
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.Productos.view', [
             'producto' => Producto::latest()
@@ -35,6 +49,7 @@ class Productos extends Component
                         ->paginate(100),
             'familias' => Familia::all(),
             'impuestos' => Impuesto::all(),
+            'almacenes' => Almacenes::all(),
         ]);
     }
 
@@ -42,6 +57,7 @@ class Productos extends Component
     {
         $this->resetInput();
         $this->updateMode = false;
+        $this->resetErrorBag();
     }
 
     private function resetInput()

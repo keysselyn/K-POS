@@ -5,7 +5,7 @@
             <div class="modal-header bg-success">
               <h5 class="modal-title">Crear Producto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span wire:click.prevent="cancel()" aria-hidden="true">&times;</span>
               </button>
             </div>
 
@@ -62,18 +62,64 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group">
+                            <label class="label">Almacen</label>
+                            <select class="form-control form-control-border border-width-2" wire:model="almacen.1">
+                                <option>...</option>
+                                @foreach($almacenes as $almacen)
+                                <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
                         <div class="col form-group">
                             <label class="label">Existencia</label>
-                            <input required autocomplete="off" wire:model="existencia" class="form-control form-control-border border-width-2"
+                            <input required autocomplete="off" wire:model="existencia.1" class="form-control form-control-border border-width-2"
                                    type="decimal(9,2)" placeholder="Existencia">
                         </div>
 
                         <div class="col form-group">
                             <label class="label">Existencia Minima</label>
-                            <input required autocomplete="off" wire:model="existencia_minima" class="form-control form-control-border border-width-2"
+                            <input required autocomplete="off" wire:model="existencia_minima.1" class="form-control form-control-border border-width-2"
                                    type="decimal(9,2)" placeholder="Existencia Minima">
                         </div>
+                        <div class="col-2 form-group">
+                            <button class="btn text-white btn-info btn-sm" wire:click.prevent="add({{$i}})">Add</button>
+                        </div>
+
+
                     </div>
+                    @foreach($inputs as $key => $value)
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label">Almacen</label>
+                            <select class="form-control form-control-border border-width-2" wire:model="almacen.{{ $value }}">
+                                <option>...</option>
+                                @foreach($almacenes as $almacen)
+                                <option value="{{$almacen->id}}">{{$almacen->nombre}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="col form-group">
+                            <label class="label">Existencia</label>
+                            <input required autocomplete="off" wire:model="existencia.{{ $value }}" class="form-control form-control-border border-width-2"
+                                   type="decimal(9,2)" placeholder="Existencia">
+                        </div>
+
+                        <div class="col form-group">
+                            <label class="label">Existencia Minima</label>
+                            <input required autocomplete="off" wire:model="existencia_minima.{{ $value }}" class="form-control form-control-border border-width-2"
+                                   type="decimal(9,2)" placeholder="Existencia Minima">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-danger btn-sm" wire:click.prevent="remove({{$key}})">Remove</button>
+                        </div>
+
+
+                    </div>
+
+                    @endforeach
 
                     <div class="col-3">
                         <div class="row border">
@@ -85,11 +131,12 @@
                             </div>
                             <div class="row">
                             <label class="btn btn-default form-control form-control-border border-width-2">
-                                Buscar imagen <i class="fas fa-images"></i> <input wire:model="imagen1" class="" type="file" name="archivo" accept="image/*" hidden id="imgInp">
+                                Buscar imagen <i class="fas fa-images"></i> <input wire:model="imagen1" class="" type="file"  accept="image/*" hidden>
                             </label>
                             @error('imagen1') <span class="error text-danger">{{ $message }}</span> @enderror
                             </div>
                     </div>
+
 
                 </form>
 
@@ -100,7 +147,7 @@
 
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Cancelar</button>
+        <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary close-btn" data-dismiss="modal">Cancelar</button>
         <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Guardar</button>
     </div>
 
